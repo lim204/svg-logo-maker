@@ -1,7 +1,8 @@
 const inquirer = require("inquirer");
-const fs = require("fs");
-const { Circle, Square, Triangle } = require("./lib/shapes");
-const svg = require("./lib/svg");
+const fs = require ("fs");
+const {Circle, Square, Triangle} = require("./lib/shapes");
+const SVG = require("./lib/svg");
+
 
 //   function writeToFile(fileName, answers){
 //     //    let svgString = "";
@@ -42,29 +43,18 @@ function promptUser() {
                 choices: ["Circle", "Square", "Triangle"],
             },
         ])
-        .then (({text,textColor,shapeColor, shape})=>{
-            let shapes;
-            switch (shapeColor){
-                case "circle":
-                    shape = new Circle;
-                    break;
-                case "square":
-                    shape = new Square;
-                    break;
-                case "triangle":
-                    shape = new Triangle;
-                    break;
-            }
-            shape.setColor(shapeColor);
+        function writeToFile( fileName, data){
+            console.log("writing ["+ data +"]to file ["+fileName+"]")
+            FileSystem.writeFile (fileName,data, function (error){
+                if (err){
+                   return console.log(err);
+                }
+                console.log("congratulations, generate logo svg");
+            });
+        }
 
-            const svg = new svg();
-            svg.setText(text,textColor);
-            svg.setShape(shape);
-            return writeFile("logo.svg",svg.render());
-        })
-        .then (()=>{
-            console.log("Generated logo.svg");
-        })
+        }
+        
 }
 
 
