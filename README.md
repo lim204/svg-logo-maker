@@ -17,5 +17,4 @@ This application is designed to generate a simple logo based on command-line app
 ## Video
 [Walkthrough Video]( )
 
-## Link 
-[Deployed Link](https://lim204.github.io/svg-logo-maker/)
+## Please click here:[Deployed Link](https://lim204.github.io/svg-logo-maker/)
