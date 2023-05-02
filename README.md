@@ -1,10 +1,9 @@
 # svg-logo-maker
 
 ## SVG Logo Maker
+This application is designed to generate a simple logo based on command-line application that accepts user input.
 
-command-line application that accepts user input
-
-##
+## Table of Content
 
     1)When user is prompted for text then user can enter up to three characters
     2)When user is prompted for the text color then user can enter a color keyword (OR a hexadecimal number)

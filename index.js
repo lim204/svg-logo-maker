@@ -1,19 +1,19 @@
 const inquirer = require("inquirer");
-const fs = require ("fs");
-const {Circle, Square, Triangle} = require("./lib/shapes");
+const fs = require("fs");
+const { Circle, Square, Triangle } = require("./lib/shapes");
 const SVG = require("./lib/svg");
 
 
-//   function writeToFile(fileName, answers){
-//     //    let svgString = "";
-//     //    svgString = `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">`;
-//     //    svgString += "<g>";
-//     //    svgString += `${answers.shape}`;
+function writeToFile(fileName, answers) {
+    let svgString = "";
+    svgString = `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">`;
+    svgString += "<g>";
+    svgString += `${answers.shape}`;
 
-//       fs.writeFile(fileName,svgString,(err)=> {
-//        err? console.log(err) : console.log ("generated logo.svg");
-//       });
-//  };
+    fs.writeFile(fileName, svgString, (err) => {
+        err ? console.log(err) : console.log("generated logo.svg");
+    });
+};
 
 
 
@@ -43,19 +43,19 @@ function promptUser() {
                 choices: ["Circle", "Square", "Triangle"],
             },
         ])
-        function writeToFile( fileName, data){
-            console.log("writing ["+ data +"]to file ["+fileName+"]")
-            FileSystem.writeFile (fileName,data, function (error){
-                if (err){
-                   return console.log(err);
-                }
-                console.log("congratulations, generate logo svg");
-            });
-        }
-
-        }
-        
+        .then ((answers)=>{
+            if (answers.text.length > 3){
+                console.log('please no more than 3 chatacters');
+                promptUser();
+            }else{
+                writeToFile("logo.svg", answers);
+            }
+        })
+  
 }
+
+
+        
 
 
 
