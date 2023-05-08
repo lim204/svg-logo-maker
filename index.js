@@ -3,19 +3,11 @@ const fs = require("fs");
 const { Circle, Square, Triangle } = require("./lib/shapes");
 const SVG = require("./lib/svg");
 
-
-function writeToFile(fileName, answers) {
-    let svgString = "";
-    svgString = `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">`;
-    svgString += "<g>";
-    svgString += `${answers.shape}`;
-
-    fs.writeFile(fileName, svgString, (err) => {
-        err ? console.log(err) : console.log("generated logo.svg");
-    });
-};
-
-
+   function writeToFile(fileName, answers){
+       fs.writeFileSync("./temp.png",answers.render(),(err)=> {
+        err? console.log(err) : console.log ("generated logo.svg");
+       });
+  };
 
 //array of questions for user input
 function promptUser() {
@@ -28,12 +20,13 @@ function promptUser() {
             },
             {
                 type: "input",
-                name: "textColor",
+                name: "textcolor",
                 message: "Please enter a text color (Enter keyword or a hexadecimal number):",
             },
             {
+
                 type: "input",
-                name: "shapeColor",
+                name: "textbackgroundColor",
                 message: "Please enter shape color (Enter keyword (or a hexadecimal number):",
             },
             {
@@ -43,19 +36,34 @@ function promptUser() {
                 choices: ["Circle", "Square", "Triangle"],
             },
         ])
-        .then ((answers)=>{
-            if (answers.text.length > 3){
-                console.log('please no more than 3 chatacters');
-                promptUser();
-            }else{
-                writeToFile("logo.svg", answers);
-            }
-        })
-  
+           .then((answers) => {
+             let shapeLogo;
+             switch(answers.shape){
+                case "Circle": 
+                 shapeLogo = new Circle()
+                 break;
+
+                 case "Square": 
+                 shapeLogo = new Square()
+                 break;
+                 
+                 case "Triangle": 
+                 shapeLogo = new Triangle()
+                 break;
+             } 
+             shapeLogo.setColor(answers.textbackgroundColor)
+             const myLogo = new SVG()
+             myLogo.setShape(shapeLogo)
+             myLogo.setText(answers.text,answers.textcolor)
+              if (answers.text.length > 3) {
+                   console.log("Please no more than 3 characters");
+                   promptUser();
+               } else {
+                  // let filecontent = myLogo.render()
+                   writeToFile("logo.svg", myLogo);
+               }
+          });
 }
-
-
-        
 
 
 
