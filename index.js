@@ -4,10 +4,14 @@ const { Circle, Square, Triangle } = require("./lib/shapes");
 const SVG = require("./lib/svg");
 
    function writeToFile(fileName, answers){
-       fs.writeFileSync("./temp.png",answers.render(),(err)=> {
+        
+       fs.writeFile(fileName,answers,(err)=> {
         err? console.log(err) : console.log ("generated logo.svg");
        });
   };
+
+
+
 
 //array of questions for user input
 function promptUser() {
@@ -59,8 +63,7 @@ function promptUser() {
                    console.log("Please no more than 3 characters");
                    promptUser();
                } else {
-                  // let filecontent = myLogo.render()
-                   writeToFile("logo.svg", myLogo);
+                   writeToFile("logo.svg", myLogo.render());
                }
           });
 }
