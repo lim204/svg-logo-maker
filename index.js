@@ -10,9 +10,6 @@ const SVG = require("./lib/svg");
        });
   };
 
-
-
-
 //array of questions for user input
 function promptUser() {
     inquirer
